@@ -1,7 +1,8 @@
 # AD340 -5210
 # Loan Pham 
-Assignment #5
+Assignment #6
 
-Create ForecastDetailsActivity
-Create an AppNavigator interface to communicate between LocationEntryFragment and MainActivity
-Create a CurrentForecastFragment
+We will be integrating the Android Navigation component into our app to define a visual navigation graph,
+manage Fragment transactions, and integrate with a BottomNavigationView.
+
+ 
