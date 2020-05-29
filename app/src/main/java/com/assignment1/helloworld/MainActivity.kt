@@ -1,24 +1,19 @@
 package com.assignment1.helloworld
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.assignment1.helloworld.details.ForecastDetailsActivity
-import com.assignment1.helloworld.forecast.CurrentForecastFragment
-import com.assignment1.helloworld.location.LocationEntryFragment
+import android.widget.Toolbar
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.assignment1.helloworld.forecast.CurrentForecastFragmentDirections
+//import com.assignment1.helloworld.location.LocationEntryFragmentDirections
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
-class MainActivity : AppCompatActivity(), AppNavigator {
+class MainActivity() : AppCompatActivity() {
 
     private lateinit var tempDisplaySettingManager: TempDisplaySettingManager
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +22,11 @@ class MainActivity : AppCompatActivity(), AppNavigator {
 
         tempDisplaySettingManager = TempDisplaySettingManager(this)
 
+        val navController = findNavController(R.id.nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        findViewById<Toolbar>(R.id.toolbar).setTitle(R.string.app_name)
+        findViewById<BottomNavigationView>(R.id.bottomNavigationView3).setupWithNavController(navController)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
@@ -38,8 +36,8 @@ class MainActivity : AppCompatActivity(), AppNavigator {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
-        return when(item.itemId){
-            R.id.tempDisplaySetting->{
+        return when (item.itemId) {
+            R.id.tempDisplaySetting -> {
                 // do sth
                 showTempDisplaySettingDialog(this, tempDisplaySettingManager)
                 //Toast.makeText(this, "clicked Menu Item", Toast.LENGTH_SHORT).show()
@@ -48,18 +46,5 @@ class MainActivity : AppCompatActivity(), AppNavigator {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-    override fun navigateToCurrentForecast(zipcode: String) {
-        /*supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragmentContainer, CurrentForecastFragment.newInstance(zipcode))
-            .commit()*/
-    }
-
-    override fun navigateToLocationEntry() {
-        /*supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragmentContainer, LocationEntryFragment())
-            .commit()*/
-    }
 }
+
